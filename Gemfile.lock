@@ -1,19 +1,26 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (6.0.0)
-      activesupport (= 6.0.0)
-    activerecord (6.0.0)
-      activemodel (= 6.0.0)
-      activesupport (= 6.0.0)
-    activesupport (6.0.0)
+    activemodel (5.2.3)
+      activesupport (= 5.2.3)
+    activerecord (5.2.3)
+      activemodel (= 5.2.3)
+      activesupport (= 5.2.3)
+      arel (>= 9.0)
+    activesupport (5.2.3)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-      zeitwerk (~> 2.1, >= 2.1.8)
+    arel (9.0.0)
+    catpix (0.2.0)
+      docopt (~> 0.5, >= 0.5.0)
+      rmagick (~> 2.15, >= 2.15.2)
+      ruby-terminfo (~> 0.1, >= 0.1.1)
+      tco (~> 0.1, >= 0.1.8)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
+    docopt (0.6.1)
     equatable (0.6.1)
     i18n (1.7.0)
       concurrent-ruby (~> 1.0)
@@ -30,7 +37,9 @@ GEM
     rack (2.0.7)
     rack-protection (2.0.7)
       rack
-    require_all (2.0.0)
+    require_all (3.0.0)
+    rmagick (2.16.0)
+    ruby-terminfo (0.1.1)
     sinatra (2.0.7)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -40,6 +49,7 @@ GEM
       activerecord (>= 3.2)
       sinatra (>= 1.0)
     sqlite3 (1.4.1)
+    tco (0.1.8)
     thread_safe (0.3.6)
     tilt (2.0.10)
     tty-color (0.5.0)
@@ -56,14 +66,16 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     wisper (2.0.1)
-    zeitwerk (2.2.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord (~> 5.2.3)
+  catpix
   pry
   require_all
+  rmagick
   sinatra-activerecord
   sqlite3
   tty-prompt

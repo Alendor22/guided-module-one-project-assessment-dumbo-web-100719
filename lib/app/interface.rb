@@ -4,6 +4,7 @@ class CommandLineInterface
     @prompt = TTY::Prompt.new
   end
 
+  
     # def admin
     #     @prompt.select("Are you a patient or administrator") do |menu|
     #         menu.choice "patient", -> { login}
@@ -35,6 +36,7 @@ class CommandLineInterface
       menu.choice "Yes", -> do
       phone = @prompt.ask("Please Enter Your Phone Number")
       @patient = Patient.find_by(phone: phone)
+      sleep(2)
         
         if @patient.nil?
           puts "Sorry, cannot find a patient with that phone number"
@@ -76,9 +78,8 @@ class CommandLineInterface
     entered_time = @prompt.ask("Plase Enter Date and Time -> Ex. 12/12/12 AT 12:00 PM ")
     @patient.appointments << Appointment.create(time: entered_time, patients: @patient.name, doctor_id: @doctor.id) 
     sleep(2)
-    # @patient.appointments.create(patient_id: patient_id, doctor_id: doctor_id)
+    # @patient.appointments.create(patient_id: patient_id, doctor_id: @doctors.id)
          appointment_system
-        #doctor_id: Doctor.first.id, 
   end
 
    # This method is checking the appointments array if the patient has appointments it will display
@@ -89,10 +90,11 @@ class CommandLineInterface
         sleep(2)
     else 
         puts "Here are your appointments:"
-        @patient.appointments.pluck(:time).each { |time| puts " - #{time}" } 
+        @patient.appointments.pluck(:time, :doctor_id).each { |array| puts " - #{array[0]} -- #{Doctor.find(array[1]).name}" }
         @prompt.select "" do |m| 
             m.choice "<Go Back>", -> { appointment_system }
         end
+
     end
         appointment_system
   end
@@ -138,10 +140,7 @@ class CommandLineInterface
     end
 
 
-    def exit_method
-      exit
-    end
-
+    
     def appointment_system
       puts `clear`
       @prompt.select("Please Select Your Option") do |menu|
@@ -150,13 +149,17 @@ class CommandLineInterface
         menu.choice "Reschedule Appointment", -> { reschedule_appointment }
         menu.choice "Cancel Appointment", -> { cancel_appointment }
         menu.choice "Exit", -> { exit_method }
-        end
+      end
     end
-
+    
     def admin_view
       Appointment.all.each do |appt|
-          puts "Name: #{appt.clients} Time:  #{appt.time}"
-        end
+        puts "Name: #{appt.clients} Time:  #{appt.time}"
+      end
     end
-
-end  
+    
+  end  
+  
+  def exit_method
+    exit
+  end
